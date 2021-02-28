@@ -7,6 +7,9 @@ Overview
 ![image]（图片路径）
 ![image](https://github.com/cocat/vue-ant-design-bycocoa/blob/main/分布表单页.png)
 
+![image]（图片路径）
+![image](https://github.com/cocat/vue-ant-design-bycocoa/blob/main/表单分析页.png)
+
 
 项目下载和运行
 ----
