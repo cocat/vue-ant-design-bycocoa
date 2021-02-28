@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-drawer
-      title="Basic Drawer"
+      title="风格设置"
       placement="right"
       :closable="false"
       :visible="visible"
@@ -13,14 +13,48 @@
         </div>
       </template>
       <div class="radioSetting">
-        <h3>整体风格定制</h3>
-        <a-radio-group
-          :value="$route.query.navTheme || 'dark'"
-          @change="(e) => handleSettingChange('navTheme', e.target.value)"
-        >
-          <a-radio value="dark"> 黑色 </a-radio>
-          <a-radio value="light"> 白色 </a-radio>
-        </a-radio-group>
+        <h3 class="setting-drawer-index-title">整体风格定制</h3>
+
+        <div class="menuTheme">
+          <div class="menuThemePic">
+            <template slot="title"> 暗色菜单风格 </template>
+            <div
+              class="setting-drawer-index-item"
+              @click="handleMenuTheme('dark')"
+            >
+              <img
+                src="https://gw.alipayobjects.com/zos/rmsportal/LCkqqYNmvBEbokSDscrm.svg"
+                alt="dark"
+              />
+              <div
+                class="setting-drawer-index-selectIcon"
+                v-if="navTheme === 'dark'"
+              >
+                <a-icon type="check" />
+              </div>
+            </div>
+          </div>
+
+          <div class="menuThemePic">
+            <template slot="title"> 亮色菜单风格 </template>
+            <div
+              class="setting-drawer-index-item"
+              @click="handleMenuTheme('light')"
+            >
+              <img
+                src="https://gw.alipayobjects.com/zos/rmsportal/jpRkZQMyYRryryPNtyIC.svg"
+                alt="light"
+              />
+              <div
+                class="setting-drawer-index-selectIcon"
+                v-if="navTheme !== 'dark'"
+              >
+                <a-icon type="check" />
+              </div>
+            </div>
+          </div>
+        </div>
+
         <h3>方向</h3>
         <a-radio-group
           :value="$route.query.navLayout || 'left'"
@@ -39,8 +73,8 @@ export default {
   data() {
     return {
       visible: false,
-      //   navTheme: "dark",
-      //   navLayout: "left",
+      navTheme: "dark",
+      navLayout: "left",
     };
   },
   methods: {
@@ -49,6 +83,21 @@ export default {
     },
     handleSettingChange(type, value) {
       this.$router.push({ query: { ...this.$route.query, [type]: value } });
+    },
+    handleMenuTheme(theme) {
+      if (theme == "dark") {
+        this.navTheme = "dark";
+        // console.log("dark");
+        this.$router.push({
+          query: { ...this.$route.query, navTheme: "dark" },
+        });
+      } else if (theme == "light") {
+        this.navTheme = "light";
+        // console.log("light");
+        this.$router.push({
+          query: { ...this.$route.query, navTheme: "light" },
+        });
+      }
     },
   },
 };
@@ -66,5 +115,11 @@ export default {
   font-size: 20px;
   line-height: 48px;
   text-align: center;
+}
+.menuTheme {
+  display: flex;
+  .menuThemePic {
+    margin-right: 10px;
+  }
 }
 </style>

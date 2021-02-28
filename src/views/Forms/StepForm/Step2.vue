@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-form>
+    <a-form :form="form">
       <a-form-item
         label="付款密码"
         :label-col="formItemLayout.labelCol"
@@ -13,16 +13,23 @@
         :label-col="formItemLayout.labelCol"
         :wrapper-col="formItemLayout.wrapperCol"
       >
+        <!-- 这个输入框这里要做节流 -->
         <a-input
           v-decorator="[
             'payAccount',
             {
               initialValue: step.password,
-              rules: [{ required: true, message: '请输入付款密码' }],
+              rules: [
+                {
+                  required: true,
+                  min: 6,
+                  message: '请输入付款密码,不得少于6位数字',
+                },
+              ],
             },
           ]"
           type="password"
-          placeholder="请输入付款密码"
+          placeholder="请输入6位付款密码"
         />
       </a-form-item>
 

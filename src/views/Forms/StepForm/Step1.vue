@@ -11,7 +11,7 @@
           'payAccount',
           {
             initialValue: step.payAccount,
-            rules: [{ required: true, message: '请输入付款账号' }],
+            rules: [{ required: true, min: 6, message: '请输入付款账号' }],
           },
         ]"
       />

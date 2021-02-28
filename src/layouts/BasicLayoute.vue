@@ -9,7 +9,9 @@
         collapsible
         width="256px"
       >
-        <div class="logo">LOGO</div>
+        <div class="logo">
+          <img src="../assets/logo_co.png" alt="" style="width: 36px" />
+        </div>
         <SiderMenu :theme="navTheme" />
       </a-layout-sider>
       <a-layout>

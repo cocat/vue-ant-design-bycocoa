@@ -1,6 +1,7 @@
 <template>
   <!-- <div style="background: #ececec; padding: 20px"> -->
   <div>
+    <!-- 面包屑 -->
     <div class="page-header">
       <a-breadcrumb>
         <a-breadcrumb-item href="">
@@ -12,7 +13,14 @@
         <a-breadcrumb-item> 分布表单 </a-breadcrumb-item>
       </a-breadcrumb>
     </div>
+    <!-- step -->
     <a-card>
+      <a-steps class="steps" :current="currentTab" style="margin: 0 auto 40px">
+        <a-step title="Step1" />
+        <a-step title="Step2" />
+        <a-step title="完成" />
+      </a-steps>
+      <!-- content -->
       <div class="content">
         <div class="content">
           <step1 v-if="currentTab === 0" @nextStep="nextStep" />
@@ -72,5 +80,11 @@ export default {
 <style lang="less">
 .page-header {
   margin: 10px 0 10px 0px;
+}
+.steps {
+  width: 80%;
+  margin: auto;
+  margin-bottom: 20px;
+  //   background-color: pink;
 }
 </style>
