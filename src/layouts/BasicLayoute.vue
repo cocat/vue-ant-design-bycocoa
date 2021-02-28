@@ -9,7 +9,7 @@
         collapsible
         width="256px"
       >
-        <div class="logo">Ant design Vue Pro</div>
+        <div class="logo">LOGO</div>
         <SiderMenu :theme="navTheme" />
       </a-layout-sider>
       <a-layout>
@@ -70,7 +70,7 @@ export default {
 <style lang="less" scoped>
 #components-layout-demo-side .logo {
   height: 32px;
-  background: rgba(255, 255, 255, 0.2);
+  //   background: rgba(255, 255, 255, 0.2);
   margin: 16px;
 }
 .Menu-icon {

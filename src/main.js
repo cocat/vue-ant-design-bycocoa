@@ -5,7 +5,7 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store/index";
 // import 'ant-design-vue/dist/antd.less';
-import { Button, Layout, Icon, Drawer, Radio, Menu, Input, Form } from 'ant-design-vue';
+import { Button, Layout, Icon, Drawer, Radio, Menu, Input, Form, Card, Breadcrumb, PageHeader } from 'ant-design-vue';
 import Authorized from "./components/Authorized.vue";
 import Auth from "./directives/auth";
 
@@ -30,6 +30,9 @@ Vue.use(Icon);
 Vue.use(Auth);
 Vue.use(Input);
 Vue.use(Form);
+Vue.use(Card);
+Vue.use(Breadcrumb);
+Vue.use(PageHeader);
 
 
 

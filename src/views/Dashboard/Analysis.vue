@@ -1,8 +1,13 @@
 <template>
   <div>
-    Analysis 分析页组件
-    <Chart :option="chartOption" style="height: 400px" />
-    <router-view></router-view>
+    <span class="analysis-title"></span>
+
+    <div style="background: #ececec; padding: 20px">
+      <a-card title="Analysis 分析页组件" :bordered="false" style="width: 100%">
+        <Chart :option="chartOption" style="height: 400px" />
+        <router-view></router-view>
+      </a-card>
+    </div>
   </div>
 </template>
 
@@ -32,14 +37,24 @@ export default {
       }).then((response) => {
         this.chartOption = {
           title: {
-            text: "ECharts 入门示例",
+            text: "ECharts 示例",
           },
           tooltip: {},
-          legend: {
-            data: ["销量"],
-          },
+          //   legend: {
+          //     data: ["销量"],
+          //   },
           xAxis: {
-            data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"],
+            data: [
+              "关键词A",
+              "关键词B",
+              "关键词C",
+              "关键词D",
+              "关键词E",
+              "关键词F",
+              "关键词G",
+              "关键词H",
+              "关键词I",
+            ],
           },
           yAxis: {},
           series: [
@@ -62,5 +77,13 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
+.ant-card-box {
+  background-color: pink;
+  width: 20px;
+}
+.ant-card {
+  //   width: 46%;
+  float: left;
+}
 </style>

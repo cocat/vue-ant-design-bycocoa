@@ -15,7 +15,7 @@ const actions = {
             data: payload
         })
         commit("savaStepFormData", payload)
-        router.push("/form/step-form/result")
+        router.push("/form/step-form")
     }
 }
 

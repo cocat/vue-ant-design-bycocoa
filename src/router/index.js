@@ -8,8 +8,8 @@ import { notification } from 'ant-design-vue';
 import NotFound from "../views/User/404.vue";
 import Forbiden from "../views/User/403.vue";
 
-import Step1 from "../views/Forms/StepForm/Step1.vue";
-// import Step2 from "./Step2";
+// import Step1 from "../views/Forms/StepForm/Step1.vue";
+// import Step2 from "../views/Forms/StepForm/Step2.vue";
 // import Step3 from "./Step3";
 
 //引入nprogress
@@ -101,22 +101,22 @@ const routes = [
                         hideChildrenInMenu: true,
                         meta: { title: "分布表单" },
                         component:
-                            () => import(/* webpackChunkName: "form" */ "../views/Forms/StepForm"),
-                        children: [
-                            { path: '/form/step-form', redirect: "/form/step-form/info" },
-                            {
-                                path: '/form/step-form/info', name: "info",
-                                component: Step1
-                            },
-                            {
-                                path: '/form/step-form/confirm', name: "confirm",
-                                component: () => import("../views/Forms/StepForm/Step2")
-                            },
-                            {
-                                path: '/form/step-form/result', name: "result",
-                                component: () => import("../views/Forms/StepForm/Step3")
-                            }
-                        ]
+                            () => import(/* webpackChunkName: "form" */ "../views/Forms/StepForm/index.vue"),
+                        // children: [
+                        //     { path: '/form/step-form', redirect: "/form/step-form/info" },
+                        //     {
+                        //         path: '/form/step-form', name: "info",
+                        //         component: Step1
+                        //     },
+                        //     {
+                        //         path: '/form/step-form/confirm', name: "confirm",
+                        //         component: Step2
+                        //     },
+                        //     {
+                        //         path: '/form/step-form/result', name: "result",
+                        //         component: () => import("../views/Forms/StepForm/Step3")
+                        //     }
+                        // ]
                     }
                 ]
             }
