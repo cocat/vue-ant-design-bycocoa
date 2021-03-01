@@ -21,7 +21,7 @@ cd ant-design-vue-pro
 
 - 安装依赖
 ```
-npm install
+npm install --save
 ```
 
 - 开发模式运行
