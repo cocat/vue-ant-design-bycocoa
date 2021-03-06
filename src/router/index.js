@@ -79,6 +79,13 @@ const routes = [
                     name: "analysis",
                     component: () =>
                         import(/* webpackChunkName: "analysis" */ "../views/Dashboard/Analysis")
+                },
+                {
+                    path: "/dashboard/search58",
+                    meta: { title: "搜索" },
+                    name: "search58",
+                    component: () =>
+                        import(/* webpackChunkName: "search" */ "../views/Dashboard/Search.vue")
                 }]
             },
             //form

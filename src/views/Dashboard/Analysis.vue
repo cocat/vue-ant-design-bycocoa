@@ -1,5 +1,6 @@
 <template>
   <div>
+    
     <span class="analysis-title"></span>
 
     <div style="background: #ececec; padding: 20px">
