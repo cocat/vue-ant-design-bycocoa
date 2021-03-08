@@ -53,7 +53,7 @@ function fetch(value, callback) {
       .then((d) => {
         const data = [];
         // console.log(d.g);
-        let text = d.g;
+        const text = d.g;
         for (let i in text) {
           data[i] = text[i].q;
         }
@@ -70,15 +70,14 @@ function jump(v) {
     alert("还没有输入内容");
     return false;
   }
-  const str = v;
-  window.location.href = `https://www.baidu.com/s?wd=${str}`;
+  window.location.href = `https://www.baidu.com/s?wd=${v}`;
 }
 
 //事件监听函数 --- 对应方法二
 function handleEnter(event) {
   let x = event.which || event.keyCode;
   if (x == 13) {
-    var str = this.value;
+    const str = this.value;
     jump(str);
   }
 }
@@ -144,7 +143,7 @@ export default {
     //搜索btn
     handleSubmit() {
       // 跳转链接
-      var currentvalue = this.value;
+      const currentvalue = this.value;
       jump(currentvalue);
     },
   },
