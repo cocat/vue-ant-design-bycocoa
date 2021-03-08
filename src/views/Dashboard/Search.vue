@@ -8,7 +8,7 @@
     <a-select
       show-search
       :value="value"
-      placeholder="联想搜索关键词：58"
+      placeholder="建议联想搜索关键词：58"
       :show-arrow="false"
       :not-found-content="null"
       @search="handleSearch"
@@ -16,6 +16,7 @@
       @select="handleSelect"
       @focus="handleFocus"
       class="selectonFocus"
+      :defaultActiveFirstOption="false"
     >
       <a-select-option
         class="selectOption"
@@ -40,30 +41,23 @@ function fetch(value, callback) {
     clearTimeout(timeout);
     timeout = null;
   }
-
-  const currentValue = value;
+  //   const currentValue = value;
   //拿到数据
   function fake() {
-    //看官网，cb函数  https://www.npmjs.com/package/fetch-jsonp ..json携带指令没搞太明白
+    //看官网，cb函数  https://www.npmjs.com/package/fetch-jsonp
     jsonp(
-      `https://www.baidu.com/sugrec?ie=utf-8&json=1&prod=pc&from=m_web&wd=58&cb=abc&_=1614768701183`,
+      `https://www.baidu.com/sugrec?ie=utf-8&json=1&prod=pc&from=m_web&wd=${value}&cb=abc&_=1614768701183`,
       { jsonpCallback: "cb" }
     )
       .then((response) => response.json())
       .then((d) => {
         const data = [];
-        if (currentValue == "58") {
-          //先拿到了对应的数组（其实还是json对象）
-          var jsonData = d.g;
-          //将json对象转成数组
-          var text = eval(jsonData);
-
-          for (var i = 0; i < text.length; i++) {
-            data[i] = text[i].q;
-          }
-          //   console.log(data);
-          callback(data);
+        // console.log(d.g);
+        var text = d.g;
+        for (let i in text) {
+          data[i] = text[i].q;
         }
+        callback(data);
       });
   }
   timeout = setTimeout(fake, 300);
@@ -116,8 +110,9 @@ export default {
 
     //输入框失焦
     handleBlur(value) {
-      this.data = [];
       this.value = value;
+      this.data = [];
+      //   console.log("没有及时清空");
       document.removeEventListener("keyup", handleEnter.bind(this), false);
     },
 
