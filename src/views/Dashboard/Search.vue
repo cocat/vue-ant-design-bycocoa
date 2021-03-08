@@ -53,7 +53,7 @@ function fetch(value, callback) {
       .then((d) => {
         const data = [];
         // console.log(d.g);
-        var text = d.g;
+        let text = d.g;
         for (let i in text) {
           data[i] = text[i].q;
         }
