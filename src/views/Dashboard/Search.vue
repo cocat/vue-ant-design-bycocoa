@@ -1,16 +1,20 @@
 <template>
   <a-form>
+    <!-- 方法一 选用 -->
+    <!-- @keyup.enter.native="handleEnter(value)" -->
+
+    <!-- 方法二、 三选用 -->
+    <!-- @focus="handleFocus" -->
     <a-select
       show-search
       :value="value"
-      placeholder="input search text"
+      placeholder="联想搜索关键词：58"
       :show-arrow="false"
       :not-found-content="null"
       @search="handleSearch"
       @blur="handleBlur"
       @select="handleSelect"
       @keyup.enter.native="handleEnter(value)"
-      :defaultActiveFirstOption="false"
       class="selectonFocus"
     >
       <a-select-option
@@ -28,7 +32,7 @@
 <script>
 import jsonp from "fetch-jsonp";
 
-//拿数据 render UI
+//取数据 render UI
 function fetch(value, callback) {
   let timeout;
   //节流
@@ -65,6 +69,17 @@ function fetch(value, callback) {
   timeout = setTimeout(fake, 300);
 }
 
+//跳转链接 判断
+function jump(v) {
+  //   判断v=this.value 是否为空
+  if (v == null) {
+    alert("还没有输入内容");
+    return false;
+  }
+  const str = v;
+  window.location.href = `https://www.baidu.com/s?wd=${str}`;
+}
+
 export default {
   data() {
     return {
@@ -72,22 +87,7 @@ export default {
       value: undefined,
     };
   },
-  //未实现 ------ 这里想要判断键盘是否是enter事件，如果enter对应是下拉框，那么阻止冒泡
-  //但是问题是，先触发了handleSelect事件，因为handleSelect事件，核心原理是option没有触发事件，只有select有事件，这个先后顺序没通
-  mounted() {
-    document.addEventListener("keyup", (e) => {
-      //   var key = e.key;
-      console.log(e);
-      if (e.key == "Enter") {
-        //e 是个KeyboardEvent事件
-        //e.target对应是个元素
-        // console.log(e.target);
-        console.log("e.target事件");
-        var ele = e.target;
-        ele.stopPropagation();
-      }
-    });
-  },
+
   methods: {
     //输入框输入
     handleSearch(value) {
@@ -101,29 +101,67 @@ export default {
     handleBlur(value) {
       this.data = [];
       this.value = value;
+      document.removeEventListener(
+        "keyup",
+        (e) => {
+          if (e.key == "Enter") {
+            var str = this.value;
+            console.log("事件监听");
+            jump(str);
+          }
+        },
+        false
+      );
     },
 
     //下拉选中
     handleSelect(v) {
       this.value = v;
       //   console.log("选中");
-      window.location.href = "https://www.baidu.com/s?wd=58";
+      jump(v);
     },
 
-    //输入框回车 本来想用keycode来判断，没搞定，发现vue有一个键盘监听，详见https://blog.csdn.net/xiaxiangyun/article/details/80404768
-    //未实现 ------要区分 输入框回车 和 下拉框回车
+    //回车 方法一  通过vue原生方法@keyup.enter 实现监听，详见https://blog.csdn.net/xiaxiangyun/article/details/80404768
     handleEnter(v) {
       this.data = [];
       this.value = v;
-      //   console.log("回车");
-      window.location.href = "https://www.baidu.com/s?wd=58";
+      jump(v);
     },
+
+    //回车 方法二 keycode来判断 添加\移除addeventlistener
+    // handleFocus() {
+    //   document.addEventListener(
+    //     "keyup",
+    //     (event) => {
+    //       var x = event.which || event.keyCode;
+    //       if (x == 13) {
+    //         var str = this.value;
+    //         jump(str);
+    //       }
+    //     },
+    //     false
+    //   );
+    // },
+
+    //回车 方法三 事件监听event.key
+    // handleFocus() {
+    //   document.addEventListener(
+    //     "keyup",
+    //     (e) => {
+    //       if (e.key == "Enter") {
+    //         var str = this.value;
+    //         jump(str);
+    //       }
+    //     },
+    //     false
+    //   );
+    // },
 
     //搜索btn
     handleSubmit() {
-      //直接传参了
-      const str = this.value;
-      window.location.href = `https://www.baidu.com/s?wd=${str}`;
+      // 跳转链接
+      var currentvalue = this.value;
+      jump(currentvalue);
     },
   },
 };
@@ -135,6 +173,5 @@ export default {
 .selectonFocus {
   width: 500px;
   margin: 30px 10px 0 10px;
-  background-color: yellow;
 }
 </style>
