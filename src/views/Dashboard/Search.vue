@@ -14,7 +14,7 @@
       @search="handleSearch"
       @blur="handleBlur"
       @select="handleSelect"
-      @keyup.enter.native="handleEnter(value)"
+      @focus="handleFocus"
       class="selectonFocus"
     >
       <a-select-option
@@ -80,6 +80,23 @@ function jump(v) {
   window.location.href = `https://www.baidu.com/s?wd=${str}`;
 }
 
+//事件监听函数 --- 对应方法二
+function handleEnter(event) {
+  let x = event.which || event.keyCode;
+  if (x == 13) {
+    var str = this.value;
+    jump(str);
+  }
+}
+
+//事件监听函数 --- 对应方法三
+// function handleEnterKey(e) {
+//   if (e.key == "Enter") {
+//     let str = this.value;
+//     jump(str);
+//   }
+// }
+
 export default {
   data() {
     return {
@@ -101,17 +118,7 @@ export default {
     handleBlur(value) {
       this.data = [];
       this.value = value;
-      document.removeEventListener(
-        "keyup",
-        (e) => {
-          if (e.key == "Enter") {
-            var str = this.value;
-            console.log("事件监听");
-            jump(str);
-          }
-        },
-        false
-      );
+      document.removeEventListener("keyup", handleEnter.bind(this), false);
     },
 
     //下拉选中
@@ -121,40 +128,22 @@ export default {
       jump(v);
     },
 
-    //回车 方法一  通过vue原生方法@keyup.enter 实现监听，详见https://blog.csdn.net/xiaxiangyun/article/details/80404768
-    handleEnter(v) {
-      this.data = [];
-      this.value = v;
-      jump(v);
-    },
-
-    //回车 方法二 keycode来判断 添加\移除addeventlistener
-    // handleFocus() {
-    //   document.addEventListener(
-    //     "keyup",
-    //     (event) => {
-    //       var x = event.which || event.keyCode;
-    //       if (x == 13) {
-    //         var str = this.value;
-    //         jump(str);
-    //       }
-    //     },
-    //     false
-    //   );
+    //回车方法一 最简单  通过vue原生方法@keyup.enter 监听，详见https://blog.csdn.net/xiaxiangyun/article/details/80404768
+    // handleEnter(v) {
+    //   this.data = [];
+    //   this.value = v;
+    //   jump(v);
     // },
 
-    //回车 方法三 事件监听event.key
+    //回车方法二 keycode来判断
+    handleFocus() {
+      document.addEventListener("keyup", handleEnter.bind(this), false);
+      //在handleBlur里remove
+    },
+
+    // 回车方法三 event.key == "enter"判断
     // handleFocus() {
-    //   document.addEventListener(
-    //     "keyup",
-    //     (e) => {
-    //       if (e.key == "Enter") {
-    //         var str = this.value;
-    //         jump(str);
-    //       }
-    //     },
-    //     false
-    //   );
+    //   document.addEventListener("keyup", handleEnterKey.bind(this), false);
     // },
 
     //搜索btn
